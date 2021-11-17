@@ -1,5 +1,7 @@
 from pages.locators import LoginPageLocators
 from .base_page import BasePage
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class LoginPage(BasePage):
@@ -26,3 +28,14 @@ class LoginPage(BasePage):
         assert self.is_element_present(
             *LoginPageLocators.REGISTARTION_FORM
         ), "Register form is not presented"
+
+    def register_new_user(self, email, password):
+        register_email = self.browser.find_element(*LoginPageLocators.EMAIL)
+        password1 = self.browser.find_element(*LoginPageLocators.PASSWORD1)
+        password2 = self.browser.find_element(*LoginPageLocators.PASSWORD2)
+        register_btn = self.browser.find_element(*LoginPageLocators.REGISTER_BTN)
+
+        register_email.send_keys(email)
+        password1.send_keys(password)
+        password2.send_keys(password)
+        register_btn.click()
